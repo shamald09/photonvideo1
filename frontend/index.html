@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCAN — Real vs AI-Generated Detector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<main class="app">
+
+  <header class="app-header">
+    <p class="eyebrow">DEEPFAKE DETECTOR</p>
+    <h1>SCAN<span class="cursor">_</span></h1>
+    <p class="subtitle">Upload an image or video to check whether it's Real, AI-generated or a Deepfake</p>
+  </header>
+
+  <!-- Mode toggle -->
+  <div class="mode-toggle" id="mode-toggle">
+    <button type="button" class="mode-btn active" id="mode-image-btn" onclick="setMode('image')">Image</button>
+    <button type="button" class="mode-btn" id="mode-video-btn" onclick="setMode('video')">Video</button>
+  </div>
+
+  <section class="panel-grid">
+
+    <!-- Upload / preview panel -->
+    <div class="panel upload-panel">
+      <div id="drop-area" class="drop-area">
+        <div class="reticle tl"></div>
+        <div class="reticle tr"></div>
+        <div class="reticle bl"></div>
+        <div class="reticle br"></div>
+
+        <div id="drop-empty" class="drop-empty">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p id="drop-text">Drop image or click to browse</p>
+          <span class="drop-hint" id="drop-hint">JPG · PNG · WEBP</span>
+        </div>
+
+        <img id="preview" alt="Preview" />
+        <video id="preview-video" class="hidden" muted controls playsinline></video>
+        <div id="scan-line" class="scan-line hidden"></div>
+
+        <input type="file" id="fileElem" accept="image/*" hidden>
+      </div>
+
+      <button id="analyze-btn" onclick="handleAnalyzeClick()">
+        <span id="btn-label">Analyze image</span>
+      </button>
+    </div>
+
+    <!-- Readout panel -->
+    <div class="panel readout-panel">
+      <p class="readout-label">Scan result</p>
+
+      <div id="idle-state" class="readout-idle">
+        <p>Waiting for input.</p>
+        <span class="dim">Upload a file and run analysis to see results here.</span>
+      </div>
+
+      <div id="result-state" class="readout-result hidden">
+        <div class="verdict-row">
+          <span id="verdict-dot" class="verdict-dot"></span>
+          <span id="result-text" class="verdict-text"></span>
+        </div>
+
+        <div class="confidence-block">
+          <div class="confidence-labels">
+            <span>Confidence</span>
+            <span id="confidence-text">0%</span>
+          </div>
+          <div class="bar-bg">
+            <div id="bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="readout-footer">
+          <span class="dim" id="model-label">Model: EfficientNet-B4</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

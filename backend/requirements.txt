@@ -1,0 +1,14 @@
+flask
+flask-cors
+torch
+torchvision
+segmentation-models-pytorch
+timm
+albumentations
+opencv-python-headless
+pillow
+opencv-python-headless
+librosa
+soundfile
+timm
+transformers
